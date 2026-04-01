@@ -10,9 +10,9 @@ const (
 
 func main() {
 
-fmt.Println("Курсы валют:")
-fmt.Println("USD -> EUR =", usdToEur)
-fmt.Println("USD -> RUB =", usdToRub)
-fmt.Println("EUR -> Rub =", eurToRub)
+	fmt.Println("Курсы валют:")
+	fmt.Println("USD -> EUR =", usdToEur)
+	fmt.Println("USD -> RUB =", usdToRub)
+	fmt.Println("EUR -> Rub =", eurToRub)
 
 }
