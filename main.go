@@ -41,9 +41,10 @@ func inputAmount() float64 {
 func main() {
 	fmt.Println("--- Меню конвертации ---")
 
-	amount := inputAmount()
-
+	
 	from := inputCurrency("Выберите исходную валюту")
+	
+	amount := inputAmount()
 
 	to := inputCurrency("Выберите целевую валюту")
 
