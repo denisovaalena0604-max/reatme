@@ -6,11 +6,11 @@ import (
 	"strings"
 )
 
-const (
-	usdToEur = 0.94
-	usdToRub = 92.50
-	eurToRub = usdToRub / usdToEur
-)
+var exchangeRates = map[string]float64{
+    "USD": 1.0,
+    "EUR": 0.94,
+    "RUB": 92.50,
+}
 
 func inputCurrency(prompt string) string {
 	for {
@@ -19,7 +19,7 @@ func inputCurrency(prompt string) string {
 		fmt.Scan(&input)
 		input = strings.ToUpper(input)
 
-		if input == "USD" || input == "EUR" || input == "RUB" {
+		if _, exists := exchangeRates[input]; exists {
 			return input
 		}
 		fmt.Println("Ошибка! Введите правильно: USD, EUR или RUB")
@@ -48,24 +48,8 @@ func main() {
 
 	to := inputCurrency("Выберите целевую валюту")
 
-	var result float64
-
-	var amountInUSD float64
-	if from == "USD" {
-		amountInUSD = amount
-	} else if from == "EUR" {
-		amountInUSD = amount / usdToEur
-	} else {
-		amountInUSD = amount / usdToRub
-	}
-
-	if to == "USD" {
-		result = amountInUSD
-	} else if to == "EUR" {
-		result = amountInUSD * usdToEur
-	} else {
-		result = amountInUSD * usdToRub
-	}
+	amountInUSD := amount / exchangeRates[from]
+	result := amountInUSD * exchangeRates[to]
 
 	fmt.Printf("\nИтог: %.2f %s = %.2f %s\n", amount, from, result, to)
 }
