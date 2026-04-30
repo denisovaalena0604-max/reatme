@@ -12,14 +12,14 @@ var exchangeRates = map[string]float64{
     "RUB": 92.50,
 }
 
-func inputCurrency(prompt string) string {
+func inputCurrency(prompt string, rates *map[string]float64) string {
 	for {
 		fmt.Print(prompt + " (USD, EUR, RUB): ")
 		var input string
 		fmt.Scan(&input)
 		input = strings.ToUpper(input)
 
-		if _, exists := exchangeRates[input]; exists {
+		if _, exists := (*rates)[input]; exists {
 			return input
 		}
 		fmt.Println("Ошибка! Введите правильно: USD, EUR или RUB")
@@ -42,11 +42,11 @@ func main() {
 	fmt.Println("--- Меню конвертации ---")
 
 	
-	from := inputCurrency("Выберите исходную валюту")
+	from := inputCurrency("Выберите исходную валюту", &exchangeRates)
 	
 	amount := inputAmount()
 
-	to := inputCurrency("Выберите целевую валюту")
+	to := inputCurrency("Выберите целевую валюту", &exchangeRates)
 
 	amountInUSD := amount / exchangeRates[from]
 	result := amountInUSD * exchangeRates[to]
